@@ -10,4 +10,4 @@ arduino stoplight controller
 more...  
 
 #code
-found [here](code/stoplight)  
+found [here](code/stoplight/stoplight.ino)  
