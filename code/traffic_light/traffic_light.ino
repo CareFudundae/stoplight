@@ -5,13 +5,13 @@ int relay_pin=4; //relay4
 int trig_pin=8;
 int echo_pin=9;
 
-int loop_delay=100; //milliseconds
+int loop_delay=20; //milliseconds
 int warning_time=5;  //seconds
 int caution_time=10; //seconds
 
 float distance;
-float min_distance=5;  //inches
-float max_distance=30; //inches
+float min_distance=2;  //inches
+float max_distance=25; //inches
 
 int alert=0;
 
@@ -101,9 +101,9 @@ float sonic_ping(){
   // so we divide by 2 to get the distance of the obstacle.
   // See: http://www.parallax.com/dl/docs/prod/acc/28015-PING-v1.3.pdf
   float dist = duration/74.0/2.0;
-  Serial.print(dist);
-  Serial.print(" in   ");
-  //Serial.println();
+  //Serial.print(dist);
+  //Serial.print(" in   ");
+  ////Serial.println();
   return dist;
   
 }
