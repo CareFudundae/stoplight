@@ -4,10 +4,10 @@ arduino stoplight controller
 # need
 1x Arduino Uno  
 1x stoplight  
-3x NPN transistors  
-3x 12VDC LED lights (strips, rings, whatever)  
-12VDC power supply  
+1x 4 channel relay shield  
+3x 120VAC CFL or LED light bulbs   
+5-12VDC power supply  
 more...  
 
 #code
-found [here](code/stoplight/stoplight.ino)  
+found [here](code/traffic_light/traffic_light.ino)  
