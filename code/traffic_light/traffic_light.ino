@@ -1,17 +1,17 @@
-int green_pin=7; 
-int yellow_pin=6;
-int red_pin=5;
-int relay_pin=4;
-int loop_delay=100; //milliseconds
-//int sonic_pin=8;
+int green_pin=7; //relay1
+int yellow_pin=6;//relay2
+int red_pin=5;   //relay3
+int relay_pin=4; //relay4
 int trig_pin=8;
 int echo_pin=9;
+
+int loop_delay=100; //milliseconds
 int warning_time=5;  //seconds
 int caution_time=10; //seconds
 
 float distance;
-float min_distance=5;
-float max_distance=30;
+float min_distance=5;  //inches
+float max_distance=30; //inches
 
 int alert=0;
 
