@@ -17,7 +17,7 @@ int alert=0;
 
 void setup()
 {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   pinMode(green_pin, OUTPUT);
   pinMode(yellow_pin, OUTPUT);
   pinMode(red_pin, OUTPUT);
@@ -34,28 +34,26 @@ void loop()
   if (distance>min_distance && distance<max_distance)
   {
     red();
-    Serial.print("ALERT");
+    //Serial.print("ALERT");
     alert=1;
     delay(warning_time*1000);    
   }
   else if (alert>0 && alert<(caution_time*(1000/loop_delay)))
   {
     yellow();
-    Serial.print("caution");
+    //Serial.print("caution");
     alert=alert+1;
-    //delay(loop_delay);
-    //delay(caution_time*1000); 
   }
   else
   {
     green();
-    Serial.print("clear");
+    //Serial.print("clear");
     alert=0;
   }
   //Serial.println();
-  Serial.print("   alert=");
-  Serial.print(alert);
-  Serial.println();
+  //Serial.print("   alert=");
+  //Serial.print(alert);
+  //Serial.println();
   
   delay(loop_delay);
 }
