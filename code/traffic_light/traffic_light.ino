@@ -5,19 +5,21 @@ int relay_pin=4; //relay4
 int trig_pin=8;
 int echo_pin=9;
 
-int loop_delay=20; //milliseconds
-int warning_time=5;  //seconds
-int caution_time=10; //seconds
+//int loop_delay=20; //milliseconds
+int relay_delay=10; //milliseconds
+int warning_time=3;  //seconds
+int caution_time=warning_time+10; //seconds
 
 float distance;
-float min_distance=2;  //inches
-float max_distance=25; //inches
+float min_distance=6;//2;  //inches
+float max_distance=48;//25; //inches
 
-int alert=0;
+//int alert=0;
+long cautionMillis=-10000;
 
 void setup()
 {
-  //Serial.begin(9600);
+  Serial.begin(9600);
   pinMode(green_pin, OUTPUT);
   pinMode(yellow_pin, OUTPUT);
   pinMode(red_pin, OUTPUT);
@@ -27,50 +29,88 @@ void setup()
 
 void loop()
 {
+  unsigned long currentMillis=millis();
 
   distance=sonic_ping();
 
-  //check for someone/something in range
   if (distance>min_distance && distance<max_distance)
   {
+    Serial.print("ALERT");
     red();
-    //Serial.print("ALERT");
-    alert=1;
-    delay(warning_time*1000);    
+    delay(warning_time*1000);
+    cautionMillis=currentMillis;
   }
-  else if (alert>0 && alert<(caution_time*(1000/loop_delay)))
+
+  else if (currentMillis-cautionMillis < (caution_time*1000))
   {
+    Serial.print("caution");
     yellow();
-    //Serial.print("caution");
-    alert=alert+1;
-  }
+  }    
   else
   {
+    Serial.print("clear");
     green();
-    //Serial.print("clear");
-    alert=0;
   }
-  //Serial.println();
-  //Serial.print("   alert=");
-  //Serial.print(alert);
-  //Serial.println();
+  Serial.print("   ");
+  Serial.print(currentMillis);
+  Serial.print("   ");
+  Serial.print(cautionMillis);
+  Serial.println();
+
+
+
+
   
-  delay(loop_delay);
+
+//  //check for someone/something in range
+//  if (distance>min_distance && distance<max_distance)         //in range, go red
+//  {
+//    red();
+//    Serial.print("ALERT");
+//    alert=1;
+//    delay(warning_time*1000);    
+//  }
+//  else if (alert>0 && alert<(caution_time*(1000/loop_delay))) //recently in range, yellow
+//  {
+//    yellow();
+//    Serial.print("caution");
+//    alert=alert+1;
+//  }
+//  else                                                        //clear, green
+//  {
+//    green();
+//    Serial.print("clear");
+//    alert=0;
+//  }
+//  Serial.print("   alert=");
+//  Serial.print(alert);
+//  Serial.println();
+//  
+//  delay(loop_delay);
 }
 int green(){
   LED_on(green_pin);
+  delay(relay_delay);
   LED_off(yellow_pin);
+  delay(relay_delay);
   LED_off(red_pin);
+  delay(relay_delay);
 }
 int yellow(){
   LED_off(green_pin);
+  delay(relay_delay);
   LED_on(yellow_pin);
+  delay(relay_delay);
   LED_off(red_pin);
+  delay(relay_delay);
 }
 int red(){
   LED_off(green_pin);
+  delay(relay_delay);
   LED_off(yellow_pin);
+  delay(relay_delay);
   LED_on(red_pin);
+  delay(relay_delay);
 }
 int LED_on(int pin){
   digitalWrite(pin,HIGH);
