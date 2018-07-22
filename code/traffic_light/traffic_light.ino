@@ -1,7 +1,8 @@
 int green_pin=7; //relay1
 int yellow_pin=6;//relay2
-int red_pin=5;   //relay3
-int relay_pin=4; //relay4
+//int red_pin=5;   //relay3
+int red_pin=4; //relay4
+//int relay_pin=4; //relay4
 int PIR_pin=2;
 
 int loop_delay=10; //milliseconds
@@ -25,6 +26,7 @@ void setup()
   pinMode(yellow_pin, OUTPUT);
   pinMode(red_pin, OUTPUT);
   pinMode(PIR_pin, INPUT);
+  delay(10*1000);
 }
 
 void loop()
