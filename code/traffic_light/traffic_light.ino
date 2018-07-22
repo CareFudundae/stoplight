@@ -2,7 +2,6 @@ int green_pin=7; //relay1
 int yellow_pin=6;//relay2
 //int red_pin=5;   //relay3
 int red_pin=4; //relay4
-//int relay_pin=4; //relay4
 int PIR_pin=2;
 
 int loop_delay=10; //milliseconds
@@ -42,9 +41,9 @@ void loop()
     already_green=false;
     already_yellow=false;
     red();
-//    delay(warning_time*1000);
     cautionMillis=currentMillis;
   }
+  
   else //if no one present, go yellow for a while, then green
   {
     if (currentMillis-cautionMillis < (caution_time*1000)) //if within caution time, go yellow
@@ -59,7 +58,7 @@ void loop()
         already_yellow=true;
       }
     }
-    else //if past caution time, go yellow
+    else //if completed caution time without new alert, go yellow
     {
       already_yellow=false;
       if (already_green==false)
@@ -71,58 +70,22 @@ void loop()
       }
     }
   }
-
-
-  
-//  {
-////    Serial.print("caution");
-//    already_green=false;
-//    
-//    if (already_yellow==false)
-//    {
-//      Serial.println();
-//      Serial.print("caution, run yellow");
-//      Serial.println();
-//      yellow();
-//      already_yellow=true;
-//    }
-//  }    
-//  else
-//  {
-////    Serial.print("clear");
-//    already_yellow=false;
-//    if (already_green==false)
-//    {
-//      Serial.println();
-//      Serial.print("clear, run green");
-//      Serial.println();
-//      green();
-//      already_green=true;
-//    }
-//  }
-//  Serial.print("   ");
-//  Serial.print(currentMillis);
-//  Serial.print("   ");
-//  Serial.print(cautionMillis);
-//  Serial.println();
-//delay(loop_delay);
-//  }
 }
 
 
-int green(){
+int green(){  //triggers green, turns off others
   LED_on(green_pin);
   LED_off(yellow_pin);
   LED_off(red_pin);
   delay(relay_delay);
 }
-int yellow(){
+int yellow(){  //triggers yellow, turns off others
   LED_off(green_pin);
   LED_on(yellow_pin);
   LED_off(red_pin);
   delay(relay_delay);
 }
-int red(){
+int red(){  //triggers red, turns off others
   LED_off(green_pin);
   LED_off(yellow_pin);
   LED_on(red_pin);
